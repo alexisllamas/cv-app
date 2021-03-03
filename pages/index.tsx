@@ -11,6 +11,7 @@ import {
   Profile,
 } from "../api";
 import Layout from "../components/Layout";
+import { getYear } from "../utils/date";
 
 export const getStaticProps: GetStaticProps = async () => {
   const [profile, education] = await Promise.all([
@@ -33,16 +34,29 @@ type EducationProps = {
 const Education: FunctionComponent<EducationProps> = ({
   profile,
   education,
-  children,
 }) => {
-  // props.profile.aboutMe.en;
+  const { t, lang } = useTranslation();
+
   return (
     <Layout profile={profile}>
       <Head>
         <title>CV</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className={styles.hola}></div>
+      <section>
+        {education.map(
+          ({ id, school, description, dateStart, dateEnd, location }) => (
+            <div key={id}>
+              <p>
+                {getYear(dateStart)} - {getYear(dateEnd)}
+              </p>
+              <p>{location}</p>
+              <h3>{school}</h3>
+              <p>{description[lang]}</p>
+            </div>
+          )
+        )}
+      </section>
     </Layout>
   );
 };
