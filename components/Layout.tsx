@@ -4,15 +4,22 @@ import Profile from "./Profile";
 import Link from "../components/LinkWithActiveClass";
 import styles from "../styles/Layout.module.scss";
 import useTranslation from "next-translate/useTranslation";
+import Meta from "./Meta";
 
 type LayoutProps = {
   profile: ProfileType;
+  pageTitle: string;
 };
 
-const Layout: FunctionComponent<LayoutProps> = ({ children, profile }) => {
+const Layout: FunctionComponent<LayoutProps> = ({
+  children,
+  profile,
+  pageTitle,
+}) => {
   const { t } = useTranslation("common");
   return (
     <div className={styles.container}>
+      <Meta profile={profile} pageTitle={pageTitle} />
       <Profile profile={profile} />
       <section className={styles.main}>
         <nav>

@@ -1,8 +1,7 @@
-import { ChangeEvent, FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 import { GetStaticProps } from "next";
 import Head from "next/head";
 import useTranslation from "next-translate/useTranslation";
-import setLanguage from "next-translate/setLanguage";
 import styles from "../styles/Education.module.scss";
 import {
   Education as EducationType,
@@ -38,24 +37,24 @@ const Education: FunctionComponent<EducationProps> = ({
   const { t, lang } = useTranslation();
 
   return (
-    <Layout profile={profile}>
-      <Head>
-        <title>CV</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <section>
-        {education.map(
-          ({ id, school, description, dateStart, dateEnd, location }) => (
-            <div key={id}>
-              <p>
-                {getYear(dateStart)} - {getYear(dateEnd)}
-              </p>
-              <p>{location}</p>
-              <h3>{school}</h3>
-              <p>{description[lang]}</p>
-            </div>
-          )
-        )}
+    <Layout profile={profile} pageTitle={t("common:education")}>
+      <section className={styles.container}>
+        <div className={styles.schools}>
+          {education.map(
+            ({ id, school, description, dateStart, dateEnd, location }) => (
+              <div key={id}>
+                <p>
+                  {getYear(dateStart)} - {getYear(dateEnd)}
+                </p>
+                <div>
+                  <h3>{school}</h3>
+                  <p>{location}</p>
+                </div>
+                <p>{description[lang]}</p>
+              </div>
+            )
+          )}
+        </div>
       </section>
     </Layout>
   );
