@@ -1,3 +1,3 @@
-export * from "./education";
-export * from "./profile";
-export * from "./certifications";
+export * from './education';
+export * from './profile';
+export * from './certifications';

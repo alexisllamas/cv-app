@@ -1,7 +1,7 @@
-import { FunctionComponent } from "react";
-import Head from "next/head";
-import { Profile } from "../api";
-import useTranslation from "next-translate/useTranslation";
+import { FunctionComponent } from 'react';
+import Head from 'next/head';
+import useTranslation from 'next-translate/useTranslation';
+import { Profile } from '../api';
 
 type MetaProps = {
   pageTitle: string;

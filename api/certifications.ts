@@ -15,5 +15,5 @@ export interface Certification {
 const baseURL = process.env.API_URL;
 export async function getCertifications(): Promise<Certification[]> {
   const res = await fetch(`${baseURL}/certifications`);
-  return await res.json();
+  return res.json();
 }

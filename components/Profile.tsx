@@ -1,60 +1,64 @@
-import { ChangeEvent, FunctionComponent } from "react";
-import Image, { ImageProps } from "next/image";
-import useTranslation from "next-translate/useTranslation";
-import setLanguage from "next-translate/setLanguage";
-import { Profile as ProfileType } from "../api";
-
-import styles from "../styles/AboutMe.module.scss";
+/* eslint-disable jsx-a11y/accessible-emoji */
+import { ChangeEvent, FunctionComponent } from 'react';
+import Image, { ImageProps } from 'next/image';
+import useTranslation from 'next-translate/useTranslation';
+import setLanguage from 'next-translate/setLanguage';
+import { Profile as ProfileType } from '../api';
+import styles from '../styles/AboutMe.module.scss';
 
 type AboutMeProps = {
   profile: ProfileType;
 };
 
-const ContactItem: FunctionComponent = ({ children }) => {
-  return <div className={styles.contactItem}>{children}</div>;
-};
+const ContactItem: FunctionComponent = ({ children }) => (
+  <div className={styles.contactItem}>{children}</div>
+);
 
 const ContactItemIcon: FunctionComponent<ImageProps> = ({
   children,
   ...props
-}) => {
-  return <Image className={styles.contactItemIcon} {...props} />;
-};
+}) => <Image className={styles.contactItemIcon} {...props} />;
 
-const ContactItemValue: FunctionComponent = ({ children, ...props }) => {
-  return (
-    <p className={styles.contactItemValue} {...props}>
-      {children}
-    </p>
-  );
-};
+const ContactItemValue: FunctionComponent = ({ children, ...props }) => (
+  <p className={styles.contactItemValue} {...props}>
+    {children}
+  </p>
+);
 
 const Profile: FunctionComponent<AboutMeProps> = ({ profile }) => {
-  const { t, lang } = useTranslation("common");
+  const { t, lang } = useTranslation('common');
 
   function handleLangChange(ev: ChangeEvent<HTMLSelectElement>) {
+    console.log(ev.target.value, ev.target);
     setLanguage(ev.target.value);
   }
+  console.log(lang);
   return (
     <section className={styles.container}>
       <div className={styles.profilePicture}>
-        <img src={profile.picture} alt={`Picture of ${profile.firstName}`} />
+        <img src={profile.picture} alt={`${profile.firstName}`} />
       </div>
       <div className={styles.languageContainer}>
-        <select onChange={handleLangChange} value={lang}>
+        <select
+          onChange={handleLangChange}
+          onBlur={handleLangChange}
+          value={lang}
+        >
           <option value="es">🇪🇸 ES</option>
-          <option value="en">🇬🇧 EN</option>
+          <option value="en" aria-label="Flag of UK">
+            🇬🇧 EN
+          </option>
         </select>
       </div>
       <h1>
         {profile.firstName} {profile.lastName}
       </h1>
       <div>
-        <h2>{t("aboutMe")}</h2>
+        <h2>{t('aboutMe')}</h2>
         <p>{profile.aboutMe[lang]}</p>
       </div>
       <div className={styles.contact}>
-        <h2>{t("contact")}</h2>
+        <h2>{t('contact')}</h2>
         <ul>
           <ContactItem>
             <ContactItemIcon
